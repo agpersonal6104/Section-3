@@ -2,7 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/add', (req,res) => {
+router.post('/add', (req,res) => {
+    console.log(req.body);
+    
     res.send('Response from user add');
 });
 
@@ -12,7 +14,10 @@ router.get('/getall', (req,res) => {
 });
 
 // getbyid
-router.get('/getbyid', (req,res) => {
+// ':' denotes URL parameter
+router.get('/getbyid/:id', (req,res) => {
+    console.log(req.params.id);
+    
     res.send('Reponse from User ID');
 });
 
