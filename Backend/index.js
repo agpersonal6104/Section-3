@@ -1,6 +1,7 @@
 // Importing Express
 const express = require('express');
-const UserRouter = require('./routers/UserRouter')
+const UserRouter = require('./routers/UserRouter');
+const ProductRouter = require('./routers/ProductRouter');
 
 // Initializing Express
 const app = express();
@@ -10,6 +11,10 @@ const port = 5000;
 // middleware
 app.use(express.json());
 app.use('/user', UserRouter);
+
+// middleware
+app.use(express.json());
+app.use('/product', ProductRouter);
 
 // endpoint or route
 app.get('/', (req,res) => {

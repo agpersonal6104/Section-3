@@ -71,9 +71,15 @@ router.get('/getbyemail/:email', (req,res) => {
 // getbyid
 // ':' denotes URL parameter
 router.get('/getbyid/:id', (req,res) => {
-    console.log(req.params.id);
     
-    res.send('Reponse from User ID');
+    Model.findById(req.params.id)
+    .then((result) => {
+        res.status(200).json(result);
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+    });
 });
 
 // update
@@ -83,8 +89,20 @@ router.get('/update',(req,res) => {
 
 // delete
 
-router.get('/delete',(req, res) => {
-    res.get('deleted')
+router.delete('/delete/:id',(req, res) => {
+
+    Model.findByIdAndDelete(req.params.id)
+    .then((result) => {
+
+        res.status(200).json(result);
+
+    })
+    .catch((err) => {
+
+        console.log(err);
+        res.status(500).json(err);
+
+    });
 });
 
 // npm init -y
