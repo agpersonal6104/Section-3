@@ -1,5 +1,6 @@
 const express = require('express');
 const Model = require('../models/userModel');
+const { model } = require('mongoose');
 
 const router = express.Router();
 
@@ -21,7 +22,50 @@ router.post('/add', (req,res) => {
 
 // getall
 router.get('/getall', (req,res) => {
-    res.send('Response from user getall');
+    
+    Model.find()
+    .then((result) => {
+        res.status(200).json(result);
+    }).catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+
+});
+
+// Get by city
+router.get('/getbycity/:city', (req,res) => {
+
+    Model.find({city : req.params.city})
+    .then((result) => {
+
+        res.status(200).json(result);
+
+    })
+    .catch((err) => {
+
+        console.log(err);
+        res.status(500).json(err);
+
+    });
+});
+
+// Get by Email
+router.get('/getbyemail/:email', (req,res) => {
+
+    Model.findOne({email : req.params.email})
+    .then((result) => {
+
+        res.status(200).json(result);
+
+    })
+    .catch((err) => {
+
+        console.log(err);
+        res.status(500).json(err);
+
+    });
+
 });
 
 // getbyid
