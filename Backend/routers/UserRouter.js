@@ -15,8 +15,14 @@ router.post('/add', (req,res) => {
     }).catch((err) => {
 
         console.log(err);
-        res.status(500).json(err);
-
+        if(err.ode === 11000)
+        {
+            res.status(500).json({message: 'Email already exists!'})
+        }
+        else{
+            res.status(500).json(err);
+        }
+        
     });
 });
 
