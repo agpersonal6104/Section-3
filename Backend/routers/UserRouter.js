@@ -20,7 +20,7 @@ router.post('/add', (req,res) => {
             res.status(500).json({message: 'Email already exists!'})
         }
         else{
-            res.status(500).json(err);
+            res.status(500).json({message : 'Something went wrong!'});
         }
         
     });
