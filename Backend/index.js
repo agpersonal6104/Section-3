@@ -2,6 +2,7 @@
 const express = require('express');
 const UserRouter = require('./routers/UserRouter');
 const ProductRouter = require('./routers/ProductRouter');
+const cors = require('cors');
 
 // Initializing Express
 const app = express();
