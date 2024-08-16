@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/add', (req,res) => {
     console.log(req.body);
     
-    new Model(req.body).save()
+    new ProductModel(req.body).save()
     .then((result) => {
 
         res.status(200).json(result);
@@ -23,7 +23,7 @@ router.post('/add', (req,res) => {
 // getall
 router.get('/getall', (req,res) => {
     
-    Model.find()
+    ProductModel.find()
     .then((result) => {
         res.status(200).json(result);
     }).catch((err) => {
@@ -36,7 +36,7 @@ router.get('/getall', (req,res) => {
 // Get by city
 router.get('/getbycity/:city', (req,res) => {
 
-    Model.find({city : req.params.city})
+    ProductModel.find({city : req.params.city})
     .then((result) => {
 
         res.status(200).json(result);
@@ -53,7 +53,7 @@ router.get('/getbycity/:city', (req,res) => {
 // Get by Email
 router.get('/getbyemail/:email', (req,res) => {
 
-    Model.findOne({email : req.params.email})
+    ProductModel.findOne({email : req.params.email})
     .then((result) => {
 
         res.status(200).json(result);
@@ -72,7 +72,7 @@ router.get('/getbyemail/:email', (req,res) => {
 // ':' denotes URL parameter
 router.get('/getbyid/:id', (req,res) => {
     
-    Model.findById(req.params.id)
+    productModel.findById(req.params.id)
     .then((result) => {
         res.status(200).json(result);
     })
@@ -83,8 +83,8 @@ router.get('/getbyid/:id', (req,res) => {
 });
 
 // update
-router.get('/update',(req,res) => {
-    res.send('Server Updated')
+router.put('/update/:id',(req,res) => {
+    ProductModel.findByIdAndUpdate(req.params.id, req.body, {new : true})
 });
 
 // delete
