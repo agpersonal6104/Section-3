@@ -118,6 +118,21 @@ router.delete('/delete/:id',(req, res) => {
     });
 });
 
+router.post('/authenticate', (req,res) => {
+    Model.findOne(req.body)
+    .then((result) => {
+        if(result){
+            // generate Token
+            
+        }else
+        {
+            res.status(401).json({ message : 'Invalid Credentials!'})
+        }
+    }).catch((err) => {
+        
+    });
+})
+
 // npm init -y
 // npm i express
 // npm i nodemon
