@@ -1,24 +1,27 @@
-const jwt = require('jasonwebtoken');
-const router = require('./UserRouter');
+// Importing jsonwebtoken
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const verifyToken = (req,res,next) => {
-
+// Middleware function to verify token
+const verifyToken = (req, res, next) => {
+    // Get token from headers
     const token = req.headers['x-auth-token'];
-    jwt.verify( token, process.env.JWT_SECRET,
-        (err, payload) => {
-            if(err)
-            {
-                console.log(err);
-                res.status(401).json(err);
-            }
-            else
-            {
-                req.user = payload;
-                next();
-            }
+
+    // Check if token exists
+    if (!token) {
+        return res.status(401).json({ message: 'No token provided' });
+    }
+
+    // Verify token
+    jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
+        if (err) {
+            console.log(err);
+            return res.status(401).json({ message: 'Invalid token' });
+        } else {
+            req.user = payload;
+            next();
         }
-     );
-}
+    });
+};
 
 module.exports = verifyToken;

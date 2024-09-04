@@ -2,6 +2,7 @@ const express = require('express');
 const Model = require('../models/userModel');
 
 const jwt = require('jsonwebtoken');
+const verifyToken = require('./verifyToken');
 require('dotenv').config();
 
 const router = express.Router();
@@ -29,16 +30,14 @@ router.post('/add', (req,res) => {
 });
 
 // getall
-router.get('/getall', (req,res) => {
-    
+router.get('/getall', verifyToken, (req, res) => {
     Model.find()
     .then((result) => {
         res.status(200).json(result);
     }).catch((err) => {
         console.log(err);
-        res.status(500).json(err);
+        res.status(500).json({ message: 'Something went wrong!' });
     });
-
 });
 
 // Get by city
