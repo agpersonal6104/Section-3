@@ -2,6 +2,8 @@ const express = require('express');
 const Model = require('../models/userModel');
 const { model } = require('mongoose');
 
+const jwt = require('jsonwebtoken');
+
 const router = express.Router();
 
 router.post('/add', (req,res) => {
@@ -123,7 +125,7 @@ router.post('/authenticate', (req,res) => {
     .then((result) => {
         if(result){
             // generate Token
-            
+
         }else
         {
             res.status(401).json({ message : 'Invalid Credentials!'})
